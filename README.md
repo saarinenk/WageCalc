@@ -1,0 +1,2 @@
+# WageCalc
+Wage calculator app
