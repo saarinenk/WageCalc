@@ -17,20 +17,18 @@ window.onload = function () {
                     
                 for (var line = 1; line < lines.length - 1; line++) {
                     var personInfo = lines[line].split(",");
-                    console.log(personInfo)
                     var wage = wage_counter(personInfo[3], personInfo[4]);
+                    var time = personInfo[2].split('.')[1] + "/" + personInfo[2].split('.')[2]
                     if (employees[personInfo[0]] !== undefined) {
-                        console.log(personInfo[0])
                         employees[personInfo[0]] = (Number(employees[personInfo[0]]) + wage);
                     } else {
-                        console.log(personInfo[1])
                         employees[Number(personInfo[1])] = personInfo[0];
-                        console.log(employees[personInfo[1]])
                         employees[personInfo[0]] = wage;
                     }
                 };
                 
                 var list = new Array();
+                list.push("Monthly Wages " + time + '\n')
                 
                 for (i in employees) {
                     if (!isNaN(i)) {
@@ -102,7 +100,6 @@ function wage_counter(s, e) {
       else if (hours < 12) wage += 2 * 3.75 * 0.25 + (hours - 10) * 3.75 * 0.5
       else wage += 2 * 3.75 * 0.25 + 2 * 3.75 * 0.5 + (hours - 12) * 3.75
     }
-    console.log(wage)
     return wage
   }
     
