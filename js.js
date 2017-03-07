@@ -6,23 +6,23 @@ window.onload = function () {
         var file = fileInput.files[0];
 		var textType = /text.*/;
             
-        // checks that uploaded file is a text-file
+    // checks that uploaded file is a text-file
 		if (file.type.match(textType)) {
             var reader = new FileReader();
 			reader.onload = function (e) {
                 
                 var employees = {};
-                
-                // first splits csv-file to lines, then gets the name, time and work start and end times from the file.
-                // Calls the wage counter function, which returns the wage.
-                // Forms the wanted string and sends it to the reserved area
+             
+    // 1. Splits csv-file to lines, then gets the employee name, date and start & end hours from the file.
+    // 2. Calls the wage counter function, which returns the wage
+    // 3. Forms the wanted String and sends it to the reserved area
                 
                 var lines = this.result.split('\n');
                     
                 for (var line = 1; line < lines.length - 1; line++) {
                     var personInfo = lines[line].split(",");
                     var wage = wage_counter(personInfo[3], personInfo[4]);
-                    var time = personInfo[2].split('.')[1] + "/" + personInfo[2].split('.')[2]
+                    var time = personInfo[2].split('.')[1] + "/" + personInfo[2].split('.')[2]  // month and year to String
                     if (employees[personInfo[0]] !== undefined) {
                         employees[personInfo[0]] = (Number(employees[personInfo[0]]) + wage);
                     } else {
@@ -47,13 +47,13 @@ window.onload = function () {
 
 			reader.readAsText(file);
 
-			} else {
-				fileDisplayArea.innerText = "File not supported, it should be a text file!";
+			} else {     // if not text-file
+				fileDisplayArea.innerText = "That file type is not supported, should be a text file!";
 			}
 		});
 }
 
-/* Counts the wage of one day using the start and end times. **/
+/* Counts the wage of one day using the given start and end hours. **/
 
 function wage_counter(s, e) {
     var wage = 0.0
@@ -63,7 +63,7 @@ function wage_counter(s, e) {
     var start_h = Number(sArray[0]) + (sArray[1] / 60.0)
     var end_h = Number(eArray[0]) + (eArray[1] / 60.0) 
     
-// counts the wage and work hours of the employee, 
+// Counts the wage and work hours of the employee, 
 // taking evening work compensations into account.
 // Handles all needed cases (for example days starting before 6 or ending after midnight).
     
@@ -97,7 +97,7 @@ function wage_counter(s, e) {
       }
     }
     
-        // adds overtime compensation to wage
+// adds overtime compensation to wage
     
     if (hours > 8) {
       if (hours < 10) wage += (hours - 8) * 3.75 * 0.25
