@@ -13,6 +13,10 @@ window.onload = function () {
                 
                 var employees = {};
                 
+                // first splits csv-file to lines, then gets the name, time and work start and end times from the file.
+                // Calls the wage counter function, which returns the wage.
+                // Forms the wanted string and sends it to the reserved area
+                
                 var lines = this.result.split('\n');
                     
                 for (var line = 1; line < lines.length - 1; line++) {
